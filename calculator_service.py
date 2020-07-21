@@ -1,6 +1,7 @@
 from flask import Flask,request
 app=Flask(__name__)
 import bodmas as bm
+from flask import jsonify
 
 @app.route("/api/add/",methods=['GET'])
 def add():
@@ -8,7 +9,7 @@ def add():
     sum=0
     for _,v in num.items():
         sum+=float(v)
-    return str(sum)
+    return jsonify(str(sum))
 
 @app.route("/api/subtract/",methods=['GET'])
 def subtract():
@@ -16,7 +17,7 @@ def subtract():
     diff=float(num['a'])+float(num['a'])
     for _,v in num.items():
         diff-=float(v)
-    return str(diff)
+    return jsonify(str(diff))
 
 @app.route("/api/multiply/",methods=['GET'])
 def multiply():
@@ -24,7 +25,7 @@ def multiply():
     prod=1
     for _,v in num.items():
         prod*=float(v)
-    return str(prod)
+    return jsonify(str(prod))
 
 @app.route("/api/divide/",methods=['GET'])
 def divide():
@@ -32,7 +33,7 @@ def divide():
     quot=float(num['a'])*float(num['a'])
     for _,v in num.items():
         quot/=float(v)
-    return str(quot)
+    return jsonify(str(quot))
 
 @app.route("/api/evaluate/",methods=['GET'])
 def evaluate():
@@ -45,7 +46,7 @@ def evaluate():
     exp_req=exp_req.replace('e','=')
     print(exp_req)
     result=bm.parse_expression(exp_req)
-    return str(result)
+    return jsonify(str(result))
 
 if (__name__=='__main__'):
     app.run(debug=True)
